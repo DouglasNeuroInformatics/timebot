@@ -1,0 +1,60 @@
+{
+  "name": "@douglasneuroinformatics/timebot",
+  "type": "module",
+  "version": "0.0.11",
+  "packageManager": "pnpm@10.28.2",
+  "description": "An automated timesheet helper for the Douglas Research Centre",
+  "author": "Joshua Unrau",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/DouglasNeuroInformatics/timebot#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DouglasNeuroInformatics/timebot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DouglasNeuroInformatics/timebot/issues"
+  },
+  "bin": {
+    "dtb": "./dist/main.js"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -b tsconfig.build.json",
+    "format": "prettier --write src",
+    "lint": "tsc && eslint --fix src",
+    "postbuild": "chmod 755 ./dist/main.js",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "commander": "^14.0.2",
+    "puppeteer-core": "^24.36.1"
+  },
+  "devDependencies": {
+    "@douglasneuroinformatics/eslint-config": "^5.3.7",
+    "@douglasneuroinformatics/prettier-config": "^0.3.0",
+    "@douglasneuroinformatics/semantic-release": "^0.2.1",
+    "@douglasneuroinformatics/tsconfig": "^1.0.5",
+    "@types/node": "25.x",
+    "eslint": "^9.39.2",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.1",
+    "type-fest": "^5.4.2",
+    "typescript": "5.9.x"
+  },
+  "commitlint": {
+    "extends": [
+      "@douglasneuroinformatics/semantic-release/commitlint-config"
+    ]
+  },
+  "prettier": "@douglasneuroinformatics/prettier-config",
+  "release": {
+    "extends": [
+      "@douglasneuroinformatics/semantic-release"
+    ]
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": []
+  }
+}

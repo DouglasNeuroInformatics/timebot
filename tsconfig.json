@@ -1,0 +1,12 @@
+{
+  "extends": ["@douglasneuroinformatics/tsconfig"],
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "rootDir": "src",
+    "tsBuildInfoFile": ".tsbuildinfo"
+  },
+  "include": ["src/**/*"]
+}
