@@ -12,12 +12,14 @@ async function action(this: Command) {
     devtools: true,
     executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
     headless: false,
-    slowMo: 100
+    // dumpio: true,
+    timeout: 10_000
+    // slowMo: 50
   });
 
   const page = await browser.newPage();
 
-  await page.setViewport({ height: 1080, width: 1920 });
+  await page.setViewport({ height: 1024, width: 1080 });
 
   await page.goto('https://portailrh-rech.comtl.rtss.qc.ca/');
 
@@ -26,7 +28,27 @@ async function action(this: Command) {
   await page.type('#password', password);
   await page.click('#kc-login');
 
-  await new Promise((r) => setTimeout(r, 5000));
+  const menuFrame = await page.waitForFrame((frame) => frame.name() === 'Menu');
+  await menuFrame.waitForSelector('a');
+
+  (await menuFrame.waitForSelector('::-p-text(Relevé de présence)', { visible: true }).then((el) => el!.click()))!;
+
+  (await menuFrame.waitForSelector("::-p-text(Relevé de l'employé)").then((el) => el!.click()))!;
+
+  const actionBarFrame = await page.waitForFrame((frame) => frame.name() === 'WorkspaceActionBarDoc');
+  await actionBarFrame.waitForSelector('td[title="Approbation du relevé"]').then((el) => el!.click());
+
+  const confirmationFrame = await page.waitForFrame((frame) => frame.name() === 'Confirmation');
+
+  await confirmationFrame.waitForSelector('input[name="password"]').then(async (el) => {
+    await el!.focus();
+    await el!.click();
+    await el!.type(password, { delay: 200 });
+  });
+
+  await confirmationFrame.waitForSelector('input[name="OK"]').then((el) => el!.click());
+
+  // await new Promise((r) => setTimeout(r, 30000));
 
   await browser.close();
 }
