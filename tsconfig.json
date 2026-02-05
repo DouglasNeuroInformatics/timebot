@@ -1,7 +1,7 @@
 {
   "extends": ["@douglasneuroinformatics/tsconfig"],
   "compilerOptions": {
-    "lib": ["ESNext"],
+    "lib": ["DOM", "ESNext"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolveJsonModule": true,
